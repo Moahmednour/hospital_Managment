@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +23,21 @@ public class Patient {
     private int age;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Appointment> appointments;
+    private List<Appointment> appointments = new ArrayList<>();
 
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+        appointment.setPatient(this);
+    }
+
+    public void removeAppointment(Appointment appointment) {
+        appointments.remove(appointment);
+        appointment.setPatient(null);
+    }
+
+    public Patient(Long id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
 }
