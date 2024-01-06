@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Appointments</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Hospital Management</a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/patients}">Patients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/doctors}">Doctors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/appointments}">Appointments</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <h1 class="mt-4 mb-4">Appointments List</h1>
+    <a href="/appointments/add" class="btn btn-primary mb-3"
+      >Schedule New Appointment</a
+    >
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Doctor</th>
+          <th>Patient</th>
+          <th>Appointment Time</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="appointment : ${appointments}">
+          <td th:text="${appointment.id}"></td>
+          <td th:text="${appointment.doctor.name}"></td>
+          <td th:text="${appointment.patient.name}"></td>
+          <td th:text="${appointment.appointmentTime}"></td>
+          <td>
+            <a
+              th:href="@{/appointments/delete/{id}(id=${appointment.id})}"
+              onclick="return confirm('Etes-vous sur ?')"
+              class="btn btn-danger btn-sm"
+              >Cancel</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

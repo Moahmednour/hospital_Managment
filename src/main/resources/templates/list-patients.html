@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Patients</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Hospital Management</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/patients}">Patients</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/doctors}">Doctors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/appointments}">Appointments</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <h1 class="mt-4 mb-4">Patients List</h1>
+  <body class="container">
+    <a href="/patients/add" class="btn btn-primary mb-3">Add New Patient</a>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="patient : ${patients}">
+          <td th:text="${patient.id}"></td>
+          <td th:text="${patient.name}"></td>
+          <td th:text="${patient.age}"></td>
+          <td>
+            <a
+              th:href="@{/patients/edit/{id}(id=${patient.id})}"
+              class="btn btn-secondary btn-sm"
+              >Edit</a
+            >
+            <a
+              th:href="@{/patients/delete/{id}(id=${patient.id})}"
+              class="btn btn-danger btn-sm"
+              onclick="return confirm('Etes-vous sur ?')"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
