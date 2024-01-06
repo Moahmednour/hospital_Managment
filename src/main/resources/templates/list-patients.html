@@ -38,7 +38,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="patient : ${patients}">
+        <tr th:each="patient : ${page.content}">
           <td th:text="${patient.id}"></td>
           <td th:text="${patient.name}"></td>
           <td th:text="${patient.age}"></td>
@@ -58,6 +58,24 @@
         </tr>
       </tbody>
     </table>
+        <p th:if="${#lists.isEmpty(page.content)}">No patients available.</p>
+    <div class="d-flex justify-content-center">
+      <div>
+      <a
+        th:href="@{/patients(page=${page.number - 1}, size=${page.size})}"
+        th:if="${page.hasPrevious()}"
+        >Previous</a
+      >
+      <span th:text="${page.number + 1} + ' of ' + ${page.totalPages}"
+        >1 of 5</span
+      >
+      <a
+        th:href="@{/patients(page=${page.number + 1}, size=${page.size})}"
+        th:if="${page.hasNext()}"
+        >Next</a
+      >
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

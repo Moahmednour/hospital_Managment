@@ -26,6 +26,7 @@
         </div>
       </div>
     </nav>
+    
     <h1 class="mt-4 mb-4">Doctors List</h1>
     <a href="/doctors/add" class="btn btn-primary mb-3">Add New Doctor</a>
     <table class="table">
@@ -38,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="doctor : ${doctors}">
+        <tr th:each="doctor : ${page.content}">
           <td th:text="${doctor.id}"></td>
           <td th:text="${doctor.name}"></td>
           <td th:text="${doctor.specialization}"></td>
@@ -58,6 +59,15 @@
         </tr>
       </tbody>
     </table>
+        <p th:if="${#lists.isEmpty(page.content)}">No doctors available.</p>
+
+     <div class="d-flex justify-content-center">
+      <div>
+        <a th:href="@{/doctors(page=${page.number - 1}, size=${page.size})}" th:if="${page.hasPrevious()}">Previous</a>
+        <span th:text="${page.number + 1} + ' of ' + ${page.totalPages}">1 of 5</span>
+        <a th:href="@{/doctors(page=${page.number + 1}, size=${page.size})}" th:if="${page.hasNext()}">Next</a>
+       </div>   
+      </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
